@@ -19,6 +19,19 @@ public class WebApiTests
     }
 
     [Fact]
+    public async Task SayGoodbyeAsync()
+    {
+        // Arrange
+        var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5254/") };
+
+        // Act
+        HttpResponseMessage response = await Helper.SayGoodbyeAsync(httpClient);
+
+        // Assert
+        response.Should().BeSuccessful();
+    }
+
+    [Fact]
     public async Task ProcessViaPostAsync()
     {
         // Arrange
@@ -45,26 +58,52 @@ public class WebApiTests
     }
 
     [Fact]
-    public async Task CompleteWithEmptyAsync()
+    public async Task ProcessViaPutAsync()
     {
         // Arrange
         var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5254/") };
 
         // Act
-        HttpResponseMessage response = await Helper.CompleteWithEmptyAsync(httpClient);
+        HttpResponseMessage response = await Helper.ProcessViaPutAsync(httpClient);
 
         // Assert
         response.Should().BeSuccessful();
     }
 
     [Fact]
-    public async Task CompleteWithNullAsync()
+    public async Task ProcessViaPutAsJsonAsync()
     {
         // Arrange
         var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5254/") };
 
         // Act
-        HttpResponseMessage response = await Helper.CompleteWithNullAsync(httpClient);
+        HttpResponseMessage response = await Helper.ProcessViaPutAsJsonAsync(httpClient);
+
+        // Assert
+        response.Should().BeSuccessful();
+    }
+
+    [Fact]
+    public async Task CompleteViaPostWithEmptyAsync()
+    {
+        // Arrange
+        var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5254/") };
+
+        // Act
+        HttpResponseMessage response = await Helper.CompleteViaPostWithEmptyAsync(httpClient);
+
+        // Assert
+        response.Should().BeSuccessful();
+    }
+
+    [Fact]
+    public async Task CompleteViaPostWithNullAsync()
+    {
+        // Arrange
+        var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5254/") };
+
+        // Act
+        HttpResponseMessage response = await Helper.CompleteViaPostWithNullAsync(httpClient);
 
         // Assert
         response.Should().BeSuccessful();

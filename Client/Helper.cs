@@ -10,6 +10,23 @@ public static class Helper
             "api/processor/hello",
             CancellationToken.None);
 
+    public static async Task<HttpResponseMessage> SayGoodbyeAsync(HttpClient httpClient) =>
+        await httpClient.DeleteAsync(
+            "api/processor/goodbye",
+            CancellationToken.None);
+
+    public static async Task<HttpResponseMessage> ProcessViaPutAsync(HttpClient httpClient) =>
+        await httpClient.PutAsync(
+            "api/processor/process",
+            new StringContent("{\"JobIdentifier\": \"mu88\", \"ConfirmJobStart\": true}", Encoding.UTF8, "application/json"),
+            CancellationToken.None);
+
+    public static async Task<HttpResponseMessage> ProcessViaPutAsJsonAsync(HttpClient httpClient) =>
+        await httpClient.PutAsJsonAsync(
+            "api/processor/process",
+            new { JobIdentifier = "mu88", ConfirmJobStart = true },
+            CancellationToken.None);
+
     public static async Task<HttpResponseMessage> ProcessViaPostAsync(HttpClient httpClient) =>
         await httpClient.PostAsync(
             "api/processor/process",
@@ -22,13 +39,13 @@ public static class Helper
             new { JobIdentifier = "mu88", ConfirmJobStart = true },
             CancellationToken.None);
 
-    public static async Task<HttpResponseMessage> CompleteWithNullAsync(HttpClient httpClient) =>
+    public static async Task<HttpResponseMessage> CompleteViaPostWithNullAsync(HttpClient httpClient) =>
         await httpClient.PostAsync(
             "internal-api/dataset/complete",
             null,
             CancellationToken.None);
 
-    public static async Task<HttpResponseMessage> CompleteWithEmptyAsync(HttpClient httpClient) =>
+    public static async Task<HttpResponseMessage> CompleteViaPostWithEmptyAsync(HttpClient httpClient) =>
         await httpClient.PostAsync(
             "internal-api/dataset/complete",
             new StringContent(string.Empty),
